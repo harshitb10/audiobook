@@ -1,7 +1,9 @@
-import logo from './logo.svg';
+
 import './App.css';
 import Player from './components/Player'
 import { useState } from 'react';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import '../node_modules/bootstrap/dist/js/bootstrap.bundle'
 
 
 
@@ -9,15 +11,14 @@ function App () {
 
   const [songs] = useState ([
 {
-  title: 'song',
+  
   img_src :'img1.jpg',
   src:'1.mp3'
 },
 
 ])
 
-const [currentSongIndex,setCurrentSongIndex]=
-useState(0);
+
 
   return (
    <div className ='App'>

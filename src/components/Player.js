@@ -1,46 +1,64 @@
-import React from 'react'
-import Control from './Control'
-import song from '../Songs/1.mp3'
-import DownloadLink from 'react-download-link'
-import web from '../images/img1.jpg'
+import { useState, useRef } from "react";
+import song from "../Songs/1.mp3";
+import web from "../images/img9.jpg";
 
+function Player() {
+  
+  const [isPlaying, setIsPlaying] = useState(false);
+  
+  const [currentTime, setCurrentTime] = useState(0);
 
+  const audioRef = useRef();
 
-function player ({props}) {
-    return (
-        <div className ='player'>
-        <h4> Audiobook website </h4>
-        <div>
+  const play = () => {
+    const audio = audioRef.current;
+    audio.volume = 0.1;
+
+    if (!isPlaying) {
+      setIsPlaying(true);
+      audio.play();
+    }
+
+    if (isPlaying) {
+      setIsPlaying(false);
+      audio.pause();
+    }
+  };
+
+  const getCurrDuration = (e) => {
+    const time = e.currentTarget.currentTime;
+
+    setCurrentTime(time.toFixed(2));
+  };
+
+  return (
+    <div className="player">
+      <h4> Audiobook website </h4>
+      <div>
+        <img src={web} />
+      </div>
+      <audio
+        className="player_audio"
+        ref={audioRef}
+        onTimeUpdate={getCurrDuration}
+        src={song}
+        controls
+      ></audio>
+      <div>
+        <button onClick={play}> paly /pause </button>
+
+        currentTime={currentTime}
+            
+      </div>
       
-        <img src ={web} />
-        </div>
-        <Control/>
-        <audio className ='player_audio' 
-        src = {song}
-        controls 
-        
-        >
-           
-        </audio>
-        <div>
-        <a href={song} download="1.mp3"> Download audio </a>
-        </div>
-
-        
-
-
-    
-
-
-
-
+      <div>
+        <a href={song} download="1.mp3">
+          {" "}
+          Download audio{" "}
+        </a>
+      </div>
     </div>
-
-        
-        
-      
-      
-    )
+  );
 }
 
-export default player
+export default Player;
